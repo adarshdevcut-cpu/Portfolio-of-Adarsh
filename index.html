@@ -116,66 +116,111 @@
     cursor: pointer;
     text-decoration: none;
 }
-        /* THE VIBRANT DEMO BACKGROUND (Only on Content) */
+        /* 1. THE MAIN BACKGROUND WRAPPER */
 .main-page-reveal {
     opacity: 0;
     width: 100%;
+    min-height: 100vh;
+    background-color: #ffffff;
+    /* The Vibrant Wide-Range Splashes from the original demo */
     background-image: 
         radial-gradient(circle at 10% 20%, rgba(255, 77, 77, 0.25) 0%, transparent 40%),
         radial-gradient(circle at 90% 30%, rgba(255, 215, 0, 0.22) 0%, transparent 40%),
         radial-gradient(circle at 15% 85%, rgba(52, 211, 153, 0.2) 0%, transparent 40%),
         radial-gradient(circle at 85% 95%, rgba(0, 122, 255, 0.2) 0%, transparent 40%);
     background-attachment: fixed;
-    /* REVEALS AT 6 SECONDS */
-    animation: pageBloom 1.2s cubic-bezier(0.19, 1, 0.22, 1) 6s forwards;
+    /* REVEAL TIMING: Appears exactly as the second plane lands */
+    animation: pageBloom 1.5s cubic-bezier(0.19, 1, 0.22, 1) 9.5s forwards;
 }
 
-/* FAST-TRACKED PLANE & TEXT LOGIC */
-.p1 { animation: barrelRollVanish 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+/* 2. PLANE & ENTRANCE CONTAINER STYLES */
+.flight-zone, .landing-zone {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.origami-plane {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.wing-l { 
+    position: absolute; border-style: solid; border-width: 0 85px 30px 0; 
+    border-color: transparent #ff4d4d transparent transparent; transform: rotateX(50deg); 
+}
+
+.wing-r { 
+    position: absolute; border-style: solid; border-width: 30px 85px 0 0; 
+    border-color: #ff4d4d transparent transparent transparent; transform: rotateX(-50deg); top: 30px; 
+}
+
+/* 3. GREETING & NAME STYLING */
+.intro-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 9998;
+    width: 100%;
+    opacity: 0;
+    animation: contentSequence 4.5s ease-in-out 3.2s forwards;
+}
+
+.greeting-block { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 10px; }
+.waving-hand { font-size: 3rem; display: inline-block; animation: waveHand 2s infinite; transform-origin: 70% 70%; }
+.greeting-text { font-size: 1.4rem; font-weight: 500; color: #475569; letter-spacing: 2px; margin: 0; }
+.elegant-name { font-size: clamp(3rem, 10vw, 5.5rem); font-weight: 900; letter-spacing: 12px; color: #0f172a; margin: 0; }
+.elegant-subtitle { font-size: 1.1rem; letter-spacing: 5px; color: #ff4d4d; text-transform: uppercase; margin-top: 15px; font-weight: 700; }
+
+/* 4. ALL ANIMATION KEYFRAMES (THE TIMING ENGINE) */
+
+/* Stage 1: Plane 1 Loop & Vanish */
+.p1 { animation: barrelRollVanish 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 @keyframes barrelRollVanish {
     0% { transform: translateX(-110vw) rotate(0deg) scale(0.6); opacity: 1; }
     40% { transform: translateX(0) rotate(0deg) scale(1.2); opacity: 1; }
-    65% { transform: translateX(0) rotate(360deg) scale(1.5); opacity: 1; }
+    60% { transform: translateX(0) rotate(360deg) scale(1.5); opacity: 1; }
+    85% { transform: scale(0.2); opacity: 1; }
     100% { transform: scale(0); opacity: 0; }
 }
 
-.intro-overlay {
-    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    text-align: center; z-index: 50; width: 100%; opacity: 0;
-    animation: contentSequence 3s ease-in-out 2.2s forwards; 
+/* Stage 2: Hand Wave */
+@keyframes waveHand {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(-10deg); }
+    40% { transform: rotate(15deg); }
+    60% { transform: rotate(-5deg); }
+    80% { transform: rotate(10deg); }
 }
 
+/* Stage 3: Content Sequence (Name Fade in/out) */
 @keyframes contentSequence {
-    0% { opacity: 0; filter: blur(10px); }
-    20%, 80% { opacity: 1; filter: blur(0px); }
-    100% { opacity: 0; filter: blur(10px); }
+    0% { opacity: 0; filter: blur(15px); transform: translate(-50%, -45%); }
+    20%, 80% { opacity: 1; filter: blur(0px); transform: translate(-50%, -50%); }
+    100% { opacity: 0; filter: blur(15px); transform: translate(-50%, -55%); }
 }
 
-.p2 { 
-    position: absolute; top: 50%; left: 50%; opacity: 0;
-    animation: landingReturn 2.5s cubic-bezier(0.19, 1, 0.22, 1) 4.8s forwards; 
-}
-
+/* Stage 4: Plane 2 Landing Return */
+.p2 { position: absolute; opacity: 0; animation: landingReturn 3.5s cubic-bezier(0.19, 1, 0.22, 1) 7.5s forwards; }
 @keyframes landingReturn {
     0% { opacity: 0; transform: translate(120vw, 50vh) rotate(180deg) scale(0.5); }
     30% { opacity: 1; }
     100% { opacity: 0; transform: translate(-150vw, -100vh) rotate(140deg) scale(5); }
 }
 
+/* Stage 5: Final Page Bloom */
 @keyframes pageBloom {
-    from { opacity: 0; filter: blur(20px); transform: translateY(50px); }
+    from { opacity: 0; filter: blur(30px); transform: translateY(100px); }
     to { opacity: 1; filter: blur(0); transform: translateY(0); }
 }
-
-/* TEXT & PLANE STYLING */
-.origami-plane { width: 80px; height: 80px; position: relative; transform-style: preserve-3d; }
-.wing-l { position: absolute; border-style: solid; border-width: 0 70px 20px 0; border-color: transparent #ff4d4d transparent transparent; transform: rotateX(50deg); }
-.wing-r { position: absolute; border-style: solid; border-width: 20px 70px 0 0; border-color: #ff4d4d transparent transparent transparent; transform: rotateX(-50deg); top: 20px; }
-.elegant-name { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; letter-spacing: 8px; color: #0f172a; margin: 0; }
-.waving-hand { display: inline-block; animation: waveHand 1.5s infinite; transform-origin: 70% 70%; font-size: 2.5rem; }
-@keyframes waveHand { 0%, 100% { transform: rotate(0deg); } 20%, 60% { transform: rotate(-15deg); } 40%, 80% { transform: rotate(20deg); } }
-
     </style>
 </head>
 <body>
@@ -256,7 +301,6 @@
             </div>
         </div>
     </nav>
-    
     <div class="main-page-reveal">
 <header class="hero">
         <div class="hero-info">
