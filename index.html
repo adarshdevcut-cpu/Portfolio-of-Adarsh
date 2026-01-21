@@ -115,10 +115,84 @@
     font-size: 30px;
     cursor: pointer;
     text-decoration: none;
-} 
+}
+        /* THE VIBRANT DEMO BACKGROUND (Only on Content) */
+.main-page-reveal {
+    opacity: 0;
+    width: 100%;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 77, 77, 0.25) 0%, transparent 40%),
+        radial-gradient(circle at 90% 30%, rgba(255, 215, 0, 0.22) 0%, transparent 40%),
+        radial-gradient(circle at 15% 85%, rgba(52, 211, 153, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 85% 95%, rgba(0, 122, 255, 0.2) 0%, transparent 40%);
+    background-attachment: fixed;
+    /* REVEALS AT 6 SECONDS */
+    animation: pageBloom 1.2s cubic-bezier(0.19, 1, 0.22, 1) 6s forwards;
+}
+
+/* FAST-TRACKED PLANE & TEXT LOGIC */
+.p1 { animation: barrelRollVanish 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+@keyframes barrelRollVanish {
+    0% { transform: translateX(-110vw) rotate(0deg) scale(0.6); opacity: 1; }
+    40% { transform: translateX(0) rotate(0deg) scale(1.2); opacity: 1; }
+    65% { transform: translateX(0) rotate(360deg) scale(1.5); opacity: 1; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+.intro-overlay {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    text-align: center; z-index: 50; width: 100%; opacity: 0;
+    animation: contentSequence 3s ease-in-out 2.2s forwards; 
+}
+
+@keyframes contentSequence {
+    0% { opacity: 0; filter: blur(10px); }
+    20%, 80% { opacity: 1; filter: blur(0px); }
+    100% { opacity: 0; filter: blur(10px); }
+}
+
+.p2 { 
+    position: absolute; top: 50%; left: 50%; opacity: 0;
+    animation: landingReturn 2.5s cubic-bezier(0.19, 1, 0.22, 1) 4.8s forwards; 
+}
+
+@keyframes landingReturn {
+    0% { opacity: 0; transform: translate(120vw, 50vh) rotate(180deg) scale(0.5); }
+    30% { opacity: 1; }
+    100% { opacity: 0; transform: translate(-150vw, -100vh) rotate(140deg) scale(5); }
+}
+
+@keyframes pageBloom {
+    from { opacity: 0; filter: blur(20px); transform: translateY(50px); }
+    to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+
+/* TEXT & PLANE STYLING */
+.origami-plane { width: 80px; height: 80px; position: relative; transform-style: preserve-3d; }
+.wing-l { position: absolute; border-style: solid; border-width: 0 70px 20px 0; border-color: transparent #ff4d4d transparent transparent; transform: rotateX(50deg); }
+.wing-r { position: absolute; border-style: solid; border-width: 20px 70px 0 0; border-color: #ff4d4d transparent transparent transparent; transform: rotateX(-50deg); top: 20px; }
+.elegant-name { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; letter-spacing: 8px; color: #0f172a; margin: 0; }
+.waving-hand { display: inline-block; animation: waveHand 1.5s infinite; transform-origin: 70% 70%; font-size: 2.5rem; }
+@keyframes waveHand { 0%, 100% { transform: rotate(0deg); } 20%, 60% { transform: rotate(-15deg); } 40%, 80% { transform: rotate(20deg); } }
+
     </style>
 </head>
 <body>
+    <div class="cinematic-stage">
+    <div class="flight-zone"><div class="origami-plane p1"><div class="wing-l"></div><div class="wing-r"></div></div></div>
+    
+    <div class="intro-overlay">
+        <div class="greeting-block">
+            <span class="waving-hand">👋</span>
+            <p class="greeting-text">Hello, Ready To Serve You</p>
+        </div>
+        <h1 class="elegant-name">ADARSH KUMAR</h1>
+        <p class="elegant-subtitle">Global Web Developer & Video Editor</p>
+    </div>
+
+    <div class="landing-zone"><div class="origami-plane p2"><div class="wing-l"></div><div class="wing-r"></div></div></div>
+</div>
    <input type="checkbox" id="legal-toggle">
 <div class="legal-overlay">
     <div class="legal-content">
@@ -182,8 +256,9 @@
             </div>
         </div>
     </nav>
-
-    <header class="hero">
+    
+    <div class="main-page-reveal">
+<header class="hero">
         <div class="hero-info">
             <span class="tagline-top">Adarsh Kumar — The Readymade Solution for You</span>
             <h1>Global Freelance Developer & Editor</h1>
@@ -196,6 +271,7 @@
         <div class="hero-img-box">
             <img src="1000091544.png" alt="Adarsh Kumar Profile Photo">
         </div>
+    </div>
     </header>
 
     <section class="services-sec" id="services">
