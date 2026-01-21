@@ -217,6 +217,55 @@
     0% { opacity: 0; filter: blur(30px); transform: scale(0.95); }
     100% { opacity: 1; filter: blur(0); transform: scale(1); }
 }
+       .cinematic-curtain {
+    /* FORCE FULLSCREEN COVERAGE */
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 2147483647 !important; /* Highest possible z-index */
+    
+    /* THE BACKGROUND PATCHES */
+    background-color: #ffffff !important;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 77, 77, 0.22) 0%, transparent 40%),
+        radial-gradient(circle at 90% 30%, rgba(255, 215, 0, 0.18) 0%, transparent 40%),
+        radial-gradient(circle at 15% 85%, rgba(52, 211, 153, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 85% 95%, rgba(0, 122, 255, 0.15) 0%, transparent 40%) !important;
+    
+    /* ALIGNMENT & BEHAVIOR */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    pointer-events: all !important;
+    
+    /* THE DISSOLVE (9.5s start, 1.2s duration) */
+    animation: curtainFade 1.2s ease-in-out 9.5s forwards !important;
+}
+
+/* Internal Layering */
+.flight-zone, .landing-zone, .intro-overlay {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+/* EXIT ANIMATION */
+@keyframes curtainFade {
+    0% { opacity: 1; visibility: visible; }
+    100% { 
+        opacity: 0; 
+        visibility: hidden; 
+        pointer-events: none; 
+    }
+}
+ 
     </style>
 </head>
 <body>
@@ -304,7 +353,6 @@
             </div>
         </div>
     </nav>
-    <div class="main-page-reveal">
 <header class="hero">
         <div class="hero-info">
             <span class="tagline-top">Adarsh Kumar — The Readymade Solution for You</span>
@@ -314,7 +362,6 @@
                 <a href="https://drive.google.com/file/d/1-n02jmxZ0DYy3RrFs0hA22MBQQloPUpZ/view?usp=sharing" class="b-base b-red" target="_blank">Download Resume</a>
                 <a href="#contact" class="b-base b-dark">Hire Me</a>
             </div>
-        </div>
         <div class="hero-img-box">
             <img src="1000091544.png" alt="Adarsh Kumar Profile Photo">
         </div>
