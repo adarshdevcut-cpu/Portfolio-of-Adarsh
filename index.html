@@ -29,7 +29,7 @@
         body { font-family: 'Inter', sans-serif; color: var(--text); line-height: 1.6; overflow-x: hidden; scroll-behavior: smooth; }
 
         /* Navigation */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 8%; position: sticky; top: 0; background: rgba(255,255,255,0.98); z-index: 1000; border-bottom: 1px solid #e2e8f0; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.0rem 8%; position: sticky; top: 0; background: rgba(255,255,255,0.98); z-index: 1000; border-bottom: 1px solid #e2e8f0; }
         .logo { font-weight: 800; font-size: 1.2rem; color: var(--primary); text-decoration: none; }
         
         /* Three-Dot Menu */
@@ -147,26 +147,7 @@
         <div class="menu-wrapper">
             <button class="dot-trigger" id="dotBtn" aria-label="Toggle Menu">
                 <div></div><div></div><div></div>
-            </button><style>
-    .nav-gmail-btn {
-        transition: transform 0.3s ease, filter 0.3s ease;
-        margin-right: 15px;
-        display: flex;
-        align-items: center;
-    }
-    .nav-gmail-btn:hover {
-        transform: scale(1.1);
-        filter: drop-shadow(0 0 5px rgba(234, 67, 53, 0.5));
-    }
-                /* Add this to the parent container of the icon and dots */
-.nav-right-container {
-    display: flex;         /* Forces side-by-side */
-    flex-direction: row;   /* Ensures horizontal alignment */
-    align-items: center;    /* Keeps them vertically centered */
-    gap: 15px;             /* Adds space between them */
-}
-
-</style>
+            </button>
 <a href="mailto:adarsh.devcut@gmail.com" class="nav-gmail-btn" title="Email Me Directly">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="#EA4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
