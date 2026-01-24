@@ -116,49 +116,42 @@
     cursor: pointer;
     text-decoration: none;
 }
-        /* --- LAG-FREE NATURE SPLASH --- */
+        /* --- PERFORMANCE OPTIMIZED SPLASH --- */
 .splash-area {
-    position: fixed; /* Pins colors to the screen, not the page */
+    position: absolute; /* Stays at the top, doesn't follow scroll */
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 1500px; /* Limits height to roughly Hero + Services area */
     z-index: -1;
     pointer-events: none;
     overflow: hidden;
-    background: #ffffff; /* Base color */
+    background: #ffffff;
+    /* Hardware acceleration to stop the lag */
+    transform: translateZ(0);
 }
 
 .blob {
     position: absolute;
-    width: 60vw;
-    height: 60vw;
+    width: 500px;
+    height: 500px;
     border-radius: 50%;
-    filter: blur(80px); /* Slightly lower blur reduces lag */
-    opacity: 0.4;
-    will-change: transform; /* Tells browser to optimize for movement */
-    animation: moveMessy 20s infinite alternate ease-in-out;
+    filter: blur(70px); /* Lower blur = Much faster speed */
+    opacity: 0.35;
+    will-change: transform;
 }
 
-.b-red { background: #ff4d4d; top: -10%; left: -10%; }
-.b-blue { background: #3b82f6; top: 10%; right: -10%; animation-delay: -5s; }
-.b-yellow { background: #ffcc00; bottom: -5%; left: -5%; animation-delay: -10s; }
-.b-green { background: #00ff88; bottom: 10%; right: 5%; animation-delay: -15s; }
+/* Static positions (No animations = No Lag) */
+.b-red { background: #ff4d4d; top: -5%; left: -10%; }
+.b-blue { background: #3b82f6; top: 15%; right: -10%; }
+.b-yellow { background: #ffcc00; top: 40%; left: -5%; }
+.b-green { background: #00ff88; top: 60%; right: 5%; }
 
-@keyframes moveMessy {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(50px, 50px) scale(1.1); }
+/* Only show on Desktop to protect your mobile Speed Score */
+@media (max-width: 768px) {
+    .splash-area { display: none; } 
 }
 
-/* Makes sections transparent so colors show through */
-.hero, .services-sec { background: transparent !important; }
-
-/* Optional: Adds a subtle glass look to service cards */
-.s-card {
-    background: rgba(255, 255, 255, 0.7) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
 </style>
 </head>
 <body>
